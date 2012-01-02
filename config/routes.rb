@@ -1,10 +1,10 @@
 MyProj::Application.routes.draw do
 
-  get "posts/new"
-
   root :to => 'pages#home'
 
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

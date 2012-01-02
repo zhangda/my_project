@@ -1,0 +1,7 @@
+<p>
+  <%= comment.content %>
+</p>
+
+<%= link_to 'delete', [comment.post, comment],
+                      :confirm => 'are you sure?',
+                      :method => :delete %>

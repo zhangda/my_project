@@ -1,0 +1,13 @@
+<b> <%= @post.title %> </b> <br />
+<p> <%= @post.content %> </p> <br />
+
+<b>Comments</b>
+<%= render @post.comments %>
+<br />
+
+<b> Add a comment </b>
+<%= render 'comments/form' %>
+
+<%= link_to 'back', posts_path %>
+
+
