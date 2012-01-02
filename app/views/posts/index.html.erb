@@ -1,0 +1,24 @@
+<% @posts.each do |post| %>
+  <div>
+    <b> <%= post.title%> </b> 
+    Posted <%= time_ago_in_words(post.created_at) %> ago
+  </div>
+ 
+  <div>
+    <%= post.content%>
+  </div>
+
+  <div>
+    <%= link_to 'edit', edit_post_path(post) %>
+    <%= link_to 'delete', post, :confirm => 'are you sure?',
+                                :method => :delete %>
+
+  </div>
+
+  <br />
+<% end %>    
+
+<%= will_paginate %>
+
+
+<%= link_to 'new post', new_post_path %>
