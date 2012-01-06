@@ -1,0 +1,8 @@
+<ul>
+<% for entry in @entries %>
+<li> <b> <%= link_to h(entry.title), entry.url %> updated <%= time_ago_in_words(entry.published_at) %> ago</b><br />
+       <p> <%= entry.summary %> </p>
+  </li>
+<% end %>
+</ul>
+
