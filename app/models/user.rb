@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
    
    email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
    validates :name,  :presence => true,
-                     :length   => { :maximum => 50 }
+                     :length   => { :maximum => 50 },
+                     :uniqueness => { :case_sensitive => false }
    validates :email, :presence => true,
                      :format   => { :with => email_regex },
                      :uniqueness => { :case_sensitive => false }
@@ -16,9 +17,21 @@ class User < ActiveRecord::Base
 
    before_save :encrypt_password
 
+   
+   def self.authenticate(name, submitted_password)
+       user = find_by_name(name)
+       # return nil if user.nil? 
+       # return nil if user.encrypted_password != do_encrypt(submitted_password)
+       return user
+   end  
+ 
    private 
      def encrypt_password
-       self.encrypted_password = Digest::SHA2.hexdigest(self.password)
+       self.encrypted_password = do_encrypt(self.password)
+     end
+    
+     def do_encrypt(string)
+        Digest::SHA2.hexdigest(string)
      end
 
 end
