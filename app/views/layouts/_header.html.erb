@@ -3,7 +3,7 @@
       <li><%= link_to "Home", root_path %></li>
       
       <% if signed_in? %>
-        <li><%= link_to "Profile", user_path(current_user) %></li>
+        <li><%= link_to "Profile", keywords_path %></li>
         <li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
         <% if current_user.admin? %>
            <li><%= link_to "All users", users_path %></li>

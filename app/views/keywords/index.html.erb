@@ -1,0 +1,19 @@
+<h1>User inforamtion</h1>
+<ul>
+  <li><%= current_user.name %></li>
+  <li><%= current_user.email %></li>
+</ul>
+<br />
+
+<h1>Keywords</h1>
+<% unless @keywords.empty?%>
+  <ul>
+    <%= render @keywords %>
+  </ul>
+  <%= will_paginate @keywords %>
+<% end %>
+<br />
+
+<h2>Add new keyword</h2>
+<%= render 'keywords/form' %>
+

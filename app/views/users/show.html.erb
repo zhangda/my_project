@@ -3,12 +3,4 @@
   <li><%= @user.name %></li>
   <li><%= @user.email %></li>
 </ul>
-<br />
 
-<h1>Keywords</h1>
-<% unless @user.keywords.empty?%>
-  <ul>
-    <%= render @keywords %>
-  </ul>
-  <%= will_paginate @keywords %>
-<% end %>
