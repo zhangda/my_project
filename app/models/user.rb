@@ -3,7 +3,9 @@ require 'digest'
 class User < ActiveRecord::Base
    attr_accessor :password
    attr_accessible :name, :email, :password, :password_confirmation
-   
+    
+   has_many :keywords, :dependent => :destroy 
+  
    email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
    validates :name,  :presence => true,
                      :length   => { :maximum => 50 },
@@ -13,7 +15,8 @@ class User < ActiveRecord::Base
                      :uniqueness => { :case_sensitive => false }
    validates :password, :presence => true,
                         :confirmation => true,
-                        :length => { :within => 4..10}
+                        :length => { :within => 4..10},
+                        :on => :create
 
    before_save :encrypt_password
 
