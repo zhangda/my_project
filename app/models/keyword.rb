@@ -8,6 +8,7 @@ class Keyword < ActiveRecord::Base
                      :uniqueness => { :case_sensitive => false }
   validates :user_id, :presence => true
 
+ 
 end
 
 # == Schema Information

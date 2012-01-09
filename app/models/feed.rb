@@ -1,64 +1,48 @@
 require 'open-uri'
 class Feed < ActiveRecord::Base
 
-  def self.update(url)
-    feed = Feedzirra::Feed.fetch_and_parse(url)
-    keywords = []
-    add_entries(feed.entries, keywords)
+  def self.update(urls)
+    urls.each do |url|
+      feed = Feedzirra::Feed.fetch_and_parse(url)
+      add_entries(feed.entries)
+    end
   end
 
  
   private
     
-    def self.add_entries(entries, keywords)
+    def self.add_entries(entries)
 	entries.each do |entry|
-	  if should_add?(entry, keywords)
             add_entry(entry)
-          end
         end
     end	
 
-    def self.has_keyword?(content, keywords)
-       keywords.each do |keyword|
-         if content.downcase.include? keyword.downcase
-           return true
-         end
-       end
-       return false
-    end
-
     def self.add_entry(entry)
+     if  !(exists? :guid => entry.id) and 
+             (entry.published > Time.now - 1.day)
        create!(
               :title => entry.title,
               :url => entry.url,
               :summary => entry.summary,
-              # :content => content,
+              :content => get_content(entry),
               :published_at => entry.published,
               :guid => entry.id
        )
-    end
+     end
+   end
 
-    def self.should_add?(entry, keywords)
-        if exists? :guid => entry.id
-          return false
-        end
-        if keywords.empty? 
-          return true
-        end
-        if has_keyword?(entry.summary, keywords)
-          return true
-        end
+    def self.get_content(entry)
+        text = ""
         begin
           doc = Nokogiri::HTML(open(entry.url).read)
           doc.xpath('//p').each do |node|
-            if has_keyword?(node.text, keywords)
-              return true
-            end
+            text = text + node.text
           end
         rescue Exception => msg
-          puts msg
+          logger.error msg
+        ensure 
+          return text
         end
-        return false
     end
 
 end

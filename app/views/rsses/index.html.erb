@@ -1,0 +1,13 @@
+
+<h1>Rss</h1>
+<% unless @rsses.nil? %>
+  <ul>
+    <%= render @rsses %>
+  </ul>
+  <%= will_paginate @rsses %>
+<% end %>
+<br />
+
+<h2>Add new rss</h2>
+<%= render 'rsses/form' %>
+

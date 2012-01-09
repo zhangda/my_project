@@ -16,6 +16,11 @@ class KeywordsController < ApplicationController
         render 'index'
       end
    end
-
+    
+   def destroy
+     Keyword.find(params[:id]).destroy
+     flash[:success] = "keyword deleted!"
+     redirect_to keywords_path
+   end
 
 end
