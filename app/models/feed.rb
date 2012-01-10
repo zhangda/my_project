@@ -9,7 +9,7 @@ class Feed < ActiveRecord::Base
   end
 
   def self.cleanup()
-    destroy_all("published_at < '#{ Time.now - 1.day }'")
+    destroy_all("published_at < '#{ Time.zone.now - 2.hour }'")
   end
 
  
@@ -23,7 +23,7 @@ class Feed < ActiveRecord::Base
 
     def self.add_entry(entry)
      if  !(exists? :guid => entry.id) and 
-             (entry.published > Time.now - 1.day)
+             (entry.published > Time.zone.now - 2.hour)
        create!(
               :title => entry.title,
               :url => entry.url,

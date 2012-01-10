@@ -1,4 +1,9 @@
+<br />
+<br />
 <div id="footer">
+ <% if signed_in? %>
 
+   <b>** <%= link_to "Fresh rss", refresh_path %> **</b>
 
+ <% end %>
 </div>

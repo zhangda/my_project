@@ -6,7 +6,11 @@ MyProj::Application.routes.draw do
     resources :comments
   end
 
-  resources :feeds, :only => [:index]
+  resources :feeds, :only => [:index] do
+    collection do
+      get 'send_mail'
+    end
+  end
   
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
@@ -18,7 +22,7 @@ MyProj::Application.routes.draw do
   match 'signup', :to => 'users#new'
   match 'signin', :to => 'sessions#new'
   match 'signout', :to => 'sessions#destroy'
-
+  match 'refresh', :to => 'pages#refresh'
 
 
   # The priority is based upon order of creation:

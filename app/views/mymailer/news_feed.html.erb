@@ -1,0 +1,11 @@
+<p>Thank you for your subscription</p>
+
+<p> 
+ <ul>  
+  <% for entry in @entries %>
+   <li> <b> <%= link_to h(entry.title), entry.url %></b><br />
+       <p> <%= raw entry.summary %> </p>
+  </li>
+ <% end %>
+ </ul>
+</p>

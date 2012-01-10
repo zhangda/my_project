@@ -1,3 +1,9 @@
+<% if !@entries.empty?%>
+<b>** <%= link_to "Mail news feed", :controller => "feeds",
+                                          :action => "send_mail" %>
+**</b>
+<%end%>
+
 <%= will_paginate @entries %>
 <ul>
 <% for entry in @entries %>
