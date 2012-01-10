@@ -9,7 +9,7 @@
 <% for entry in @entries %>
 <li> <b> <%= link_to h(entry.title), entry.url %> updated <%= time_ago_in_words(entry.published_at) %> ago</b><br />
        <p> <%= raw entry.summary %> </p>
-       <p style="font-size:xx-small"> <%= raw entry.content %> </p>
+       <p style="font-size:x-small"> <%= raw entry.content %> </p>
   </li>
 <% end %>
 </ul>
