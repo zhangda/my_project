@@ -56,7 +56,7 @@ module MyProj
       :port                 => 587,
       :domain               => 'heroku.com',
       :user_name            => 'wakakakalalala',
-      :password             => 'cheungtat',
+      :password             => '3edc$RFV',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
 
