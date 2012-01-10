@@ -55,8 +55,8 @@ module MyProj
       :address              => "smtp.gmail.com",
       :port                 => 587,
       :domain               => 'heroku.com',
-      :user_name            => 'zhangda.test',
-      :password             => '3edc$RFV',
+      :user_name            => 'wakakakalalala',
+      :password             => 'cheungtat',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
 
