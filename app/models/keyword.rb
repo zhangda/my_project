@@ -5,7 +5,8 @@ class Keyword < ActiveRecord::Base
 
   validates :value,  :presence => true,
                      :length   => { :maximum => 50 },
-                     :uniqueness => { :case_sensitive => false }
+                     :uniqueness => { :case_sensitive => false,
+                                      :scope => :user_id }
   validates :user_id, :presence => true
 
  

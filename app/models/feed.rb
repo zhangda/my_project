@@ -8,6 +8,10 @@ class Feed < ActiveRecord::Base
     end
   end
 
+  def self.cleanup()
+    destroy_all("published_at < '#{ Time.now - 1.day }'")
+  end
+
  
   private
     
