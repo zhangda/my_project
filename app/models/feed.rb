@@ -1,4 +1,4 @@
-require 'open-uri'
+# require 'open-uri'
 class Feed < ActiveRecord::Base
 
   def self.update(urls)
@@ -9,45 +9,51 @@ class Feed < ActiveRecord::Base
   end
 
   def self.cleanup()
-    destroy_all("published_at < '#{ Time.zone.now - 2.hour }'")
+    destroy_all("published_at < '#{ Time.zone.now - 1.day }'")
   end
 
  
   private
     
     def self.add_entries(entries)
+        hydra = Typhoeus::Hydra.new
 	entries.each do |entry|
-            add_entry(entry)
+          add_entry(entry, hydra)
         end
+        hydra.run
     end	
 
-    def self.add_entry(entry)
+    def self.add_entry(entry, hydra)
      if  !(exists? :guid => entry.id) and 
-             (entry.published > Time.zone.now - 2.hour)
-       create!(
+             (entry.published > Time.zone.now - 1.day)
+         
+        begin
+          text = ""
+          http_request = Typhoeus::Request.new(entry.url, :follow_location => true)
+          http_request.on_complete do |response|
+            doc = Nokogiri::HTML(response.body)
+            doc.xpath('//p').each do |node|
+              text = text + node.text
+            end
+
+             create!(
               :title => entry.title,
               :url => entry.url,
               :summary => entry.summary,
-              :content => get_content(entry),
+              :content => text.force_encoding("utf-8"),
               :published_at => entry.published,
               :guid => entry.id
-       )
+            )
+          end
+          hydra.queue http_request
+        rescue Exception => msg
+          logger.error msg
+        ensure
+        end
+
      end
    end
 
-    def self.get_content(entry)
-        text = ""
-        begin
-          doc = Nokogiri::HTML(open(entry.url).read)
-          doc.xpath('//p').each do |node|
-            text = text + node.text
-          end
-        rescue Exception => msg
-          logger.error msg
-        ensure 
-          return text
-        end
-    end
 
 end
 
