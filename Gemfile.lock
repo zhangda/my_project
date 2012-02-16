@@ -44,6 +44,7 @@ GEM
     curb (0.7.16)
     daemons (1.1.5)
     erubis (2.7.0)
+    event-calendar (2.3.3)
     execjs (1.2.13)
       multi_json (~> 1.0)
     faker (1.0.1)
@@ -144,6 +145,7 @@ DEPENDENCIES
   annotate
   coffee-rails (~> 3.1.1)
   daemons
+  event-calendar
   execjs
   faker
   feedzirra
