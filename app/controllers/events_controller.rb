@@ -1,5 +1,14 @@
 class EventsController < ApplicationController
 
+ def index
+   @events = Event.all
+   respond_to do |format|
+      format.html # show.html.erb
+      format.js { render json: @events }
+    end
+ end
+
+
  def show
     @event = Event.find(params[:id])
     respond_to do |format|
@@ -30,6 +39,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        #@event.url = "/events/#{@event.id}"
+        #@event.save
         format.html { redirect_to '/calendar', notice: 'Event was successfully created.' }
         format.json { render json: @event, status: :created, location: @event }
       else
