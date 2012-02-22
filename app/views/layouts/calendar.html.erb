@@ -3,9 +3,10 @@
 <head>
   <title>dada's home</title>
   <%= stylesheet_link_tag    "fullcalendar.css" %>
-  <%= javascript_include_tag "jquery171.js", "jqueryui1817custom.js", "fullcalendar.js" %>
+  <%= javascript_include_tag "jquery171.js", "jqueryui1817custom.js", "fullcalendar.js", "jqueryrest.js" %>
   <%= csrf_meta_tags %>
-  <%= csrf_meta_tags %>
+
+<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
 
 
 </head>

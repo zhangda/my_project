@@ -1,9 +1,7 @@
-
+<div id='loading' style='display:none'>loading...</div>
 <div id='calendar'></div>
 
 <%= link_to 'add new event', new_event_path %>
-
-
 
 <script type='text/javascript'>
 
@@ -22,15 +20,37 @@ var date = new Date();
                           url: '/events',
                           ignoreTimezone: false
                         }],
-                        timeFormat: 'h:mm t{ - h:mm t} ',
-
+                        timeFormat: 'h:mm tt{ - h:mm tt} ',
+			slotMinutes: 10,
                         loading: function(bool) {
 				if (bool) $('#loading').show();
 				else $('#loading').hide();
-			}
+			},
+
+                        eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc){
+                           updateEvent(event);
+                        },
+
+                        eventResize: function(event, dayDelta, minuteDelta, revertFunc){
+                           updateEvent(event);
+                        },
+
 		});
 		
 	});
+
+
+function updateEvent(the_event) {
+    $.update(
+      "/events/" + the_event.id,
+      { event: { title: the_event.title,
+                 starts_at: "" + the_event.start,
+                 ends_at: "" + the_event.end,
+               }
+      },
+      function (reponse) { alert('successfully updated task.'); }
+    );
+};
 
 </script>
 <style type='text/css'>
