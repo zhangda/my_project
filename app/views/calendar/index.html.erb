@@ -14,10 +14,16 @@ var date = new Date();
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,basicWeek,basicDay'
+				right: 'month,agendaWeek,agendaDay'
 			},
 			editable: false,
-			events: "/events.js",
+                        
+                        eventSources: [{
+                          url: '/events',
+                          ignoreTimezone: false
+                        }],
+                        timeFormat: 'h:mm t{ - h:mm t} ',
+
                         loading: function(bool) {
 				if (bool) $('#loading').show();
 				else $('#loading').hide();

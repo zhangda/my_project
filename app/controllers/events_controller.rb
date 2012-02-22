@@ -1,7 +1,9 @@
 class EventsController < ApplicationController
 
  def index
-   @events = Event.all
+    @events = Event.scoped
+    @events = @events.after(params['start']) if (params['start'])
+    @events = @events.before(params['end']) if (params['end']) 
    respond_to do |format|
       format.html # show.html.erb
       format.js { render json: @events }

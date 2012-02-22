@@ -1,14 +1,17 @@
 class Event < ActiveRecord::Base
+  scope :before, lambda {|end_time| {:conditions => ["ends_at < ?", Event.format_date(end_time)] }}
+  scope :after, lambda {|start_time| {:conditions => ["starts_at > ?", Event.format_date(start_time)] }}
+
 
   def as_json(options = {})
     {
       :id => self.id,
       :title => self.title,
       :start => self.starts_at.rfc822,
-      #:description => self.description || "",
+      :description => "test",
       :end => self.ends_at.rfc822,
-      #:allDay => self.all_day,
-      #:recurring => false,
+      :allDay => false,
+      :recurring => false,
       :url => Rails.application.routes.url_helpers.event_path(id)
     }
     
