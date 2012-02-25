@@ -15,6 +15,11 @@
   <%= @event.ends_at %>
 </p>
 
+<p>
+  <b>Content:</b>
+  <%= raw(@event.content) %>
+</p>
+
 
 <%= link_to 'Back', '/calendar' %>
 <%= link_to 'Delete',  @event, :confirm => 'are you sure?', :method => :delete %>

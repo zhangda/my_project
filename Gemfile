@@ -11,6 +11,7 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'gravatar_image_tag'
 gem 'will_paginate'
+gem 'ckeditor'
 
 # Gems used only for assets and not required
 # in production environments by default.

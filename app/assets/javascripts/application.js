@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ckeditor
 //= require_tree .
 
 $.ajaxSetup({

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221183823) do
+ActiveRecord::Schema.define(:version => 20120225070428) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20120221183823) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url"
+    t.text     "content"
   end
 
   create_table "feeds", :force => true do |t|
